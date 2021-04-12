@@ -18,7 +18,7 @@
     "web-vitals": "^1.0.1"
   },
   "publishConfig": {
-    "registry":"https://github.com/dhana-abracontrols/qp-es-react-ui.git"
+    "registry": "https://github.com/dhana-abracontrols/qp-es-react-ui.git"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,5 +43,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Querypark react ui",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhana-abracontrols/qp-es-react-ui.git"
+  },
+  "keywords": [
+    "querypark"
+  ],
+  "author": "Dhana <dhana.rama@abracontrols.com> (https://dhana-abracontrols.github.io/querypark-backend/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dhana-abracontrols/qp-es-react-ui/issues"
+  },
+  "homepage": "https://github.com/dhana-abracontrols/qp-es-react-ui#readme"
 }
