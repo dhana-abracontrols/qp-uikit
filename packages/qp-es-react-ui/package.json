@@ -1,6 +1,6 @@
 {
-  "name": "qp-es-react-ui",
-  "version": "0.1.0",
+  "name": "@dhana-abracontrls/qp-es-react-ui",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -54,7 +54,7 @@
   "keywords": [
     "querypark"
   ],
-  "author": "Dhana <dhana.rama@abracontrols.com> (https://dhana-abracontrols.github.io/querypark-backend/)",
+  "author": "Dhana <dhana.rama@abracontrols.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dhana-abracontrols/qp-es-react-ui/issues"
