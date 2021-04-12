@@ -1,7 +1,6 @@
 {
   "name": "@dhana-abracontrls/qp-es-react-ui",
-  "version": "0.2.0",
-  "private": true,
+  "version": "0.2.1",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -18,7 +17,7 @@
     "web-vitals": "^1.0.1"
   },
   "publishConfig": {
-    "registry": "https://github.com/dhana-abracontrols/qp-es-react-ui.git"
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "start": "react-scripts start",
