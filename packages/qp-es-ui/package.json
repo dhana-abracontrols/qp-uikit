@@ -1,6 +1,6 @@
 {
   "name": "qp-es-ui",
-  "version": "2.0.1",
+  "version": "2.0.0-alpha.1",
   "description": "Query Park UI Components for React",
   "keywords": [
     "Component",
@@ -32,6 +32,9 @@
     "deploy": "cross-env NODE_ENV=production nps publish",
     "start": "cross-env NODE_ENV=development webpack-dev-server --progress",
     "test": "jest --coverage",
+    "verify": "nps clean && npm test -- -u && npm run lint",
+    "precommit": "npm run verify",
+    "preversion": "npm run verify",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
@@ -109,6 +112,5 @@
     "node-sass": "^5.0.0",
     "react-table-v6": "^6.8.6",
     "yarn": "^1.22.10"
-  },
-  "gitHead": "d6f77b6c83104d25dc3a6005acf40fd1072d0d50"
+  }
 }
