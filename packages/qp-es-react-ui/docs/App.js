@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 
-import  Search  from './Search'
+import { Search } from 'qp-es-react-ui'
 
 import Logo from './assets/Logo.png'
 
@@ -17,7 +17,7 @@ class App extends Component {
     // API_KEY=API_KEY. If in production, API_KEY is set to ''
 
     // This allows devs to skip copy pasting a key into the box every reload.
-    this.state = { API_KEY :'temp'}
+    this.state = { API_KEY }
     this.updateKey = this.updateKey.bind(this)
   }
 
@@ -46,10 +46,10 @@ class App extends Component {
         </div>
       </header>
       <main className={Style.Main}>
-        {/*<section>
-                  <p>Enter Your API Key:</p>
-                  <input type='text' onChange={this.updateKey} />
-                </section>*/}
+        <section>
+          <p>Enter Your API Key:</p>
+          <input type='text' onChange={this.updateKey} />
+        </section>
         <section>
           { search }
         </section>

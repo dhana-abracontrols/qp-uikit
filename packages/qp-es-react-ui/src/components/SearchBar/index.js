@@ -72,7 +72,7 @@ class SearchBar extends Component {
     />)
   }
 
-  onChange = (chosenWell) => {
+  onChange(chosenWell) {
     this.chosenWellHeader(chosenWell)
     this.props.updateFooter(<ChosenWell.Footer reset={this.reset} />)
     this.setState({ well: chosenWell })
@@ -180,20 +180,20 @@ class SearchBar extends Component {
     }
   }
 
-  filterRegions = (inputValue) => {
+  filterRegions (inputValue) {
     return regionOptions.filter(i => {
     //  console.log(i)
       i.label.includes(inputValue)
     });
   };
   
-  loadOptions = (inputValue, callback) => {
+  loadOptions (inputValue, callback){
     setTimeout(() => {
       callback(this.filterRegions(inputValue));
     }, 1000);
   };
 
-  handleRegionChange = (newValue) => {
+  handleRegionChange (newValue) {
   //  console.log(newValue)
     let regionValue = [];
     newValue.forEach(v => {
