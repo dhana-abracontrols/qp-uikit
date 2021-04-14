@@ -1,6 +1,6 @@
 {
   "name": "@testqueryparkui/qp-es-ui",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
     "@babel/cli": "^7.13.14",
     "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
