@@ -32,9 +32,6 @@
     "deploy": "cross-env NODE_ENV=production nps publish",
     "start": "cross-env NODE_ENV=development webpack-dev-server --progress",
     "test": "jest --coverage",
-    "verify": "nps clean && npm test -- -u && npm run lint",
-    "precommit": "npm run verify",
-    "preversion": "npm run verify",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
