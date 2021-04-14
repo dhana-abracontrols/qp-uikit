@@ -109,5 +109,6 @@
     "node-sass": "^5.0.0",
     "react-table-v6": "^6.8.6",
     "yarn": "^1.22.10"
-  }
+  },
+  "gitHead": "d6f77b6c83104d25dc3a6005acf40fd1072d0d50"
 }
