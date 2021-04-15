@@ -1,5 +1,5 @@
 {
-  "name": "qp-es-ui",
+  "name": "@testqueryparkui/qp-es-ui",
   "version": "2.0.0-alpha.1",
   "description": "Query Park UI Components for React",
   "keywords": [
@@ -112,5 +112,8 @@
     "node-sass": "^5.0.0",
     "react-table-v6": "^6.8.6",
     "yarn": "^1.22.10"
+  },
+  "directories": {
+    "doc": "docs"
   }
 }
