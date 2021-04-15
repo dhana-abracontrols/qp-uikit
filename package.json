@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "ci": "lerna bootstrap && lerna run verify",
+    "ci": "lerna bootstrap --hoist && lerna run verify",
     "version": "git add -A",
     "postversion": "git push && lerna publish"
   },
