@@ -10,8 +10,7 @@
     border: 1px solid black;
     padding: 20px; 
     width: 400px;
-    height: 10px;
-    align-self: center;
+    height: 10px;    
 }
 
  input[type=text]:focus {
@@ -27,16 +26,3 @@
 .gallery p {
     word-break: break-all;
 }
-.pagination-bottom{
-    display: flex;
-    width: 700px;
-}
-.SearchOption {
-    display: flex;
-    flex-direction: column;
-    align-content : right;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    padding: 16px;
-  
-  }
