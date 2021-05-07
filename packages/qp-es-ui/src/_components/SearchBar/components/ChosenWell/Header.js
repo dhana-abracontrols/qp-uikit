@@ -7,11 +7,7 @@ import Button from '../../../Button'
 import Style from './Header.module.css'
 
 const Header = ({ well, clickDetails, showDetails }) => {
-  const { primaryHeader,search } = well
-  const primaryHeaderValue = {
-    value : primaryHeader.value ? primaryHeader.value : null,
-    query : search
-  }
+  const { primaryHeader } = well
 
   return <>
     <Field large
@@ -19,9 +15,9 @@ const Header = ({ well, clickDetails, showDetails }) => {
       labelEmphasis
       valueEmphasis
       label={primaryHeader.label}
-      value={primaryHeaderValue} />
+      value={primaryHeader.value} />
     <Button className={Style.Button} onClick={clickDetails}>
-      Export
+      {showDetails ? 'Overview' : 'Details'}
     </Button>
   </>
 }
@@ -29,7 +25,7 @@ const Header = ({ well, clickDetails, showDetails }) => {
 Header.propTypes = {
   well: PropTypes.object.isRequired,
   clickDetails: PropTypes.func.isRequired,
-  showDetails: PropTypes.bool
+  showDetails: PropTypes.bool.isRequired
 }
 
 export default Header

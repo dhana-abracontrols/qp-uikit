@@ -8,16 +8,6 @@ import classNames from 'classnames'
 
 import Style from './index.module.css'
 
-const getHighlightedText = (text, highlight) =>{
-  // Split on highlight term and include term into parts, ignore case
-  const parts = text.toString().split(new RegExp(`(${highlight})`, 'gi'));
-  return <span> { parts.map((part, i) =>
-      <span key={i} className={part.toLowerCase() === highlight.toLowerCase() ? Style.highlighted : '' }>
-          { part }
-      </span>)
-  } </span>;
-}
-
 const Field = ({
   className,
   large,
@@ -28,7 +18,6 @@ const Field = ({
   label,
   value
 }) => {
-  
   const ContainerStyle = classNames({
     [Style.Container]: labelEllipsis || valueEllipsis
   }, className)
@@ -45,11 +34,9 @@ const Field = ({
     [Style.Ellipsis]: valueEllipsis
   })
   return (
-    
     <div className={ContainerStyle}>
       <h2 className={LabelStyle}>{ label }</h2>
-      {/* <p className={ValueStyle}>{ value }</p> */}
-      {value.value !== null ? getHighlightedText(value.value,value.query) : <p className={ValueStyle}>{ value.value }</p>}
+      <p className={ValueStyle}>{ value }</p>
     </div>
   )
 }
@@ -62,7 +49,7 @@ Field.propTypes = {
   labelEmphasis: PropTypes.bool,
   labelEllipsis: PropTypes.bool,
   label: PropTypes.string.isRequired,
-  value: PropTypes.object
+  value: PropTypes.string
 }
 
 Field.defaultProps = {
