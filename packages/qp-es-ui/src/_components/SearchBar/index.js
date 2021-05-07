@@ -6,12 +6,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import FetchWithTimeout from '../../util/FetchWithTimeout'
 
-//import AsyncSelect from 'react-select/async'
+// import AsyncSelect from 'react-select/async'
 import { SearchOption, ChosenWell, WellsFound } from './components'
 import ErrorDisplay from '../ErrorDisplay'
-//import { MDBDataTable, MDBTableBody, MDBTableHead , NavLink } from 'mdbreact';
+// import { MDBDataTable, MDBTableBody, MDBTableHead , NavLink } from 'mdbreact';
 import Style from './index.module.css'
-import {regionOptions} from '../../util/constants'
+import { regionOptions } from '../../util/constants'
 const { Headers } = window
 const fetch = FetchWithTimeout(window.fetch)
 
@@ -27,8 +27,6 @@ const DEFAULT_STATE = {
   showDetails: false,
   error: null
 }
-
-
 
 class SearchBar extends Component {
   constructor (props) {
@@ -52,14 +50,13 @@ class SearchBar extends Component {
 
   reset (region) {
     this.setState(DEFAULT_STATE)
-    //this.setState({inputValue  : '' , suggestedWells   : []})
-    
+    // this.setState({inputValue  : '' , suggestedWells   : []})
+
     this.props.updateHeader(<h1>Well Search</h1>)
     this.props.updateFooter(<p />)
   }
 
   chosenWellHeader (chosenWell, showDetails = false) {
-    
     this.props.updateHeader(<ChosenWell.Header well={chosenWell}
       clickDetails={this.handleClickDetails(chosenWell)}
       showDetails={showDetails}
@@ -78,9 +75,9 @@ class SearchBar extends Component {
   handleInputChange (e) {
     e.preventDefault()
     e.stopPropagation()
-    
-    this.setState({inputValue : e.target.value} , () => {
-      this.setState({suggestedWells : []})
+
+    this.setState({ inputValue: e.target.value }, () => {
+      this.setState({ suggestedWells: [] })
       this.getWells()
     })
     if (this.state.error) {
@@ -89,7 +86,7 @@ class SearchBar extends Component {
   }
 
   handleClickDetails (chosenWell) {
-    Object.assign(chosenWell,{"search" : this.state.inputValue})
+    Object.assign(chosenWell, { 'search': this.state.inputValue })
     return () => {
       const showDetails = !this.state.showDetails
       this.setState({ showDetails })
@@ -98,11 +95,11 @@ class SearchBar extends Component {
   }
 
   async getWells () {
-    if(this.state.inputValue !== '' && this.state.inputValue !== null){
-      //console.log(this.state.inputregionValue)
+    if (this.state.inputValue !== '' && this.state.inputValue !== null) {
+      // console.log(this.state.inputregionValue)
       const query = `?query=${this.state.inputValue.replace(/[^A-Za-z0-9]/g, '')}`
       const region = `&region=${this.state.inputregionValue.join(',')}`
-      const url =   QP_URL_ROOT + 'suggest' + query
+      const url = QP_URL_ROOT + 'suggest' + query
 
       try {
         const response = await fetch(url, {
@@ -115,42 +112,39 @@ class SearchBar extends Component {
         if (!json.ok) {
           throw new Error(json.message)
         }
-        
-        const wells = json.payload.wells        
-        this.setState({suggestedWells : wells})
-        
-      //  this.props.updateFooter(<WellsFound json={json} />)
-       
+
+        const wells = json.payload.wells
+        this.setState({ suggestedWells: wells })
+
+        //  this.props.updateFooter(<WellsFound json={json} />)
       } catch (error) {
         this.setState({ error })
-       
       }
     }
   }
- 
-  showsuggestedwellsdivc(){
+
+  showsuggestedwellsdivc () {
     return this.state.suggestedWells.map((well) => {
-      return <SearchOption data = {well} selectOption = {this.onChange}/>
+      return <SearchOption data={well} selectOption={this.onChange} />
     })
   }
 
- showsuggestedwellstable(){
-   return this.state.suggestedWells.map((well) => {
-    return(<SearchOption data = {well} selectOption = {this.onChange}/>)
-   })
+  showsuggestedwellstable () {
+    return this.state.suggestedWells.map((well) => {
+      return (<SearchOption data={well} selectOption={this.onChange} />)
+    })
 
-    const  namedivStyle = {
-      fontSize : "20px",
-      color : 'blue'
-    }; 
-  
-    if(this.state.suggestedWells.length > 0){
-     
+    const namedivStyle = {
+      fontSize: '20px',
+      color: 'blue'
+    }
+
+    if (this.state.suggestedWells.length > 0) {
       const wellTable = {
-        columns :[
+        columns: [
           {
-            label : 'Well Name',
-            field : 'wellname'
+            label: 'Well Name',
+            field: 'wellname'
           }/* ,
           {
             label : 'Operator',
@@ -162,44 +156,44 @@ class SearchBar extends Component {
           } */
         ],
         // rows : this.state.suggestedWells.map((w) => {return ({wellname : w.primaryHeader['value'] !== undefined? <div style = {namedivStyle} onClick = {() => this.onChange(w)}> {w.primaryHeader['value']} </div> : <div> {w.wellData.fieldname} </div>, operator :<div style = {namedivStyle} onClick = {() => this.onChange(w)}> {w.owner['value']} </div>,region:w.attributes.region})})
-        rows : this.state.suggestedWells.map((w) => {
-          Object.assign(w,{'search' : this.state.inputValue})
-          return({ wellname : <SearchOption data = {w} selectOption = {this.onChange}/>})
+        rows: this.state.suggestedWells.map((w) => {
+          Object.assign(w, { 'search': this.state.inputValue })
+          return ({ wellname: <SearchOption data={w} selectOption={this.onChange} /> })
         })
       }
-      return <MDBDataTable searching={false} data={wellTable}></MDBDataTable>
+      return <MDBDataTable searching={false} data={wellTable} />
+    }
   }
- }
-  
+
   onInputChange (val, action) {
     if (action.action === 'input-blur') {
       this.props.updateFooter(<p />)
     }
   }
 
-  filterRegions (inputValue)  {
+  filterRegions (inputValue) {
     return regionOptions.filter(i => {
     //  console.log(i)
       i.label.includes(inputValue)
-    });
-  };
-  
-  loadOptions (inputValue, callback)  {
-    setTimeout(() => {
-      callback(this.filterRegions(inputValue));
-    }, 1000);
+    })
   };
 
-  handleRegionChange (newValue)  {
+  loadOptions (inputValue, callback) {
+    setTimeout(() => {
+      callback(this.filterRegions(inputValue))
+    }, 1000)
+  };
+
+  handleRegionChange (newValue) {
   //  console.log(newValue)
-    let regionValue = [];
+    let regionValue = []
     newValue.forEach(v => {
-       regionValue.push(v.value.replace(/\W/g, ''));
+      regionValue.push(v.value.replace(/\W/g, ''))
     })
-    this.setState({ inputregionValue : regionValue }, () => {
-      this.setState({suggestedWells : []})
+    this.setState({ inputregionValue: regionValue }, () => {
+      this.setState({ suggestedWells: [] })
       this.getWells()
-    });
+    })
   };
 
   render () {
@@ -207,11 +201,11 @@ class SearchBar extends Component {
 
     if (well.uuid) {
       return showDetails
-        ? <ChosenWell.Details well={Object.assign(well,{"search" : this.state.inputValue})} />
-        : <ChosenWell well={Object.assign(well,{"search" : this.state.inputValue})} />
+        ? <ChosenWell.Details well={Object.assign(well, { 'search': this.state.inputValue })} />
+        : <ChosenWell well={Object.assign(well, { 'search': this.state.inputValue })} />
     } else {
       return <>
-        {/*<AsyncSelect className={Style.SearchBar}
+        {/* <AsyncSelect className={Style.SearchBar}
                   components={{ Option: SearchOption }}
                   styles={{ menu: (_base, _style) => ({ margin: '5px 0 0' }) }}
                   backspaceRemovesValue={false}
@@ -222,20 +216,20 @@ class SearchBar extends Component {
                   loadOptions={this.getWells}
                   onChange={this.onChange}
                   // remove filtering (this is already done by the api)
-                  filterOption={null} />*/}
-          <div className={Style.SearchBar}>
-            {/* <AsyncSelect className={Style.SearchBar}
-              isMulti      
-              placeholder = "Select Region(s)"     
+                  filterOption={null} /> */}
+        <div className={Style.SearchBar}>
+          {/* <AsyncSelect className={Style.SearchBar}
+              isMulti
+              placeholder = "Select Region(s)"
               defaultOptions={regionOptions}
               loadOptions = {this.loadOptions}
               onChange = {this.handleRegionChange} /> */}
-            <input type = 'text' autoFocus onFocus={e => e.currentTarget.select()} placeholder='Search...' className={Style.ip2} name='search' id='search' value = {this.state.inputValue} onChange={this.handleInputChange}/> 
-          </div>
-          <br />
-          <br />
-          <br />
-          {this.showsuggestedwellstable()}
+          <input type='text' autoFocus onFocus={e => e.currentTarget.select()} placeholder='Search...' className={Style.ip2} name='search' id='search' value={this.state.inputValue} onChange={this.handleInputChange} />
+        </div>
+        <br />
+        <br />
+        <br />
+        {this.showsuggestedwellstable()}
         {
           error &&
           <ErrorDisplay error={error} />

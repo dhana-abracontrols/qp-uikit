@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Button from '../../../Button'
 
-//const Footer = ({ reset }) => <Button onClick={reset}>Reset Search</Button>
+// const Footer = ({ reset }) => <Button onClick={reset}>Reset Search</Button>
 // to go back to main page
 const Footer = ({ reset }) => <Button onClick={reset}>Back</Button>
 

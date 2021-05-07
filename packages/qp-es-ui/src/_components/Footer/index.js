@@ -17,7 +17,7 @@ const Footer = ({ children }) => (
       <a href='https://www.querypark.com'
         rel='noopener noreferrer'
         target='_blank'>
-          QUERY PARK INC.
+        QUERY PARK INC.
       </a>
     </h6>
   </div>
