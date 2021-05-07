@@ -10,8 +10,7 @@ import Style from './index.module.css'
 
 const getHighlightedText = (text, highlight) =>{
   // Split on highlight term and include term into parts, ignore case
-  //console.log(text,highlight)
-  const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+  const parts = text.toString().split(new RegExp(`(${highlight})`, 'gi'));
   return <span> { parts.map((part, i) =>
       <span key={i} className={part.toLowerCase() === highlight.toLowerCase() ? Style.highlighted : '' }>
           { part }

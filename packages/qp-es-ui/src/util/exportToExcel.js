@@ -1,5 +1,5 @@
 const dataToExcel = async (data) => {
-    console.log('HERE')
+    //console.log('HERE')
     let success = false
     var uri = 'data:application/vnd.ms-excel;base64,'
     , tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'

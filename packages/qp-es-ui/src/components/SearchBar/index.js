@@ -7,15 +7,16 @@ import PropTypes from 'prop-types'
 import FetchWithTimeout from '../../util/FetchWithTimeout'
 import convertToCSV from '../../util/convertTocsv'
 import dataToExcel from '../../util/exportToExcel'
-
+import Pagination from "../Paginations"
 //import AsyncSelect from 'react-select/async'
 import { SearchOption, ChosenWell, WellsFound } from './components'
 import ErrorDisplay from '../ErrorDisplay'
-
+import CustomDialog from '../Dialog/Dialog'
 import Style from './index.module.css'
 import {regionOptions} from '../../util/constants'
 import parse from '../../util/parse'
 import ReactTable from 'react-table-v6'
+//import "react-table/react-table.css";
 
 const { Headers } = window
 const fetch = FetchWithTimeout(window.fetch)
@@ -30,7 +31,9 @@ const createNewHeaders = (apiKey) => new Headers({
 const DEFAULT_STATE = {
   well: {},
   showDetails: true,
-  error: null
+  error: null,
+  confirmationModal:false,
+  confirmationMessage:'File created.'
 }
 
 function groupBy(list, keyGetter) {
@@ -55,7 +58,8 @@ function groupBy(list, keyGetter) {
 class SearchBar extends Component {
   constructor (props) {
     super(props)
-
+    //this.state.confirmationModal = false
+		//this.state.confirmationMessage = 'File created.'
     this.state = Object.assign({}, DEFAULT_STATE)
     this.state.inputValue = ''
     this.state.inputregionValue = []
@@ -72,6 +76,10 @@ class SearchBar extends Component {
     this.handleRegionChange = this.handleRegionChange.bind(this)
   }
 
+  handleConfirmationOk(){
+		this.setState({confirmationModal : !this.state.confirmationModal})
+	}
+
   reset (region) {
     this.setState(DEFAULT_STATE)
     //this.setState({inputValue  : '' , suggestedWells   : []})
@@ -83,7 +91,7 @@ class SearchBar extends Component {
   chosenWellHeader (chosenWell, showDetails = true) {
     
     this.props.updateHeader(<ChosenWell.Header well={chosenWell}
-      clickDetails={this.handleClickDetails(chosenWell)}
+      clickDetails={() => this.handleClickDetails(chosenWell)}
       showDetails={showDetails}
     />)
   }
@@ -110,8 +118,16 @@ class SearchBar extends Component {
     }
   }
 
-  handleClickDetails (chosenWell) {
+  async handleClickDetails (chosenWell) {
     Object.assign(chosenWell,{"search" : this.state.inputValue})
+    console.log(chosenWell)
+    let parsedJson = await parse(chosenWell)
+    console.log(parsedJson)
+    let parsedObject = [{key : chosenWell.wellData.Region , value : parsedJson}]
+    let fileCreated = await dataToExcel(parsedObject)
+    if(fileCreated) {
+      this.setState({confirmationModal : !this.state.confirmationModal})
+    }
     return () => {
       const showDetails = !this.state.showDetails
       this.setState({ showDetails })
@@ -152,11 +168,11 @@ class SearchBar extends Component {
   
   async exportExcel(e){
     e.preventDefault()
-    console.log(this.state.suggestedWells[0])
+  //  console.log(this.state.suggestedWells[3])
     let jsonObject = this.state.suggestedWells;
    // console.log(jsonObject[0])
     let groupedObject = groupBy(jsonObject,jsonObject => jsonObject.wellData.Region )
-    //console.log(groupedObject)
+   // console.log(groupedObject)
    
     let parsedObject = []
     for(let [k,value] of groupedObject.entries()){
@@ -164,15 +180,17 @@ class SearchBar extends Component {
       let parsedJson = await parse(value)
       parsedObject.push({key : k, value : parsedJson})
     }   
-    /* console.log(parsedObject.length)
-    for(let p=0; p<parsedObject.length; p++) {
+     console.log(parsedObject)
+    /*for(let p=0; p<parsedObject.length; p++) {
       console.log(parsedObject)
       for (let k in parsedObject[0].value[1]) {
         console.log(parsedObject[0].value[1][k])
       }
     } */
     let fileCreated = await dataToExcel(parsedObject)
-    if(fileCreated) alert('File Created')
+    if(fileCreated) {
+      this.setState({confirmationModal : !this.state.confirmationModal})
+    }
 
   }
   /* showsuggestedwellsdivc(){
@@ -186,7 +204,8 @@ class SearchBar extends Component {
     return <Table columns = {columns} data = {data} />
   } */
 
- showsuggestedwellstable(){   
+ showsuggestedwellstable(){  
+  console.log(this.state.suggestedWells) 
     if(this.state.suggestedWells.length > 0){
       const data =  this.state.suggestedWells.map((well) => {
           Object.assign(well,{'search' : this.state.inputValue})
@@ -197,7 +216,7 @@ class SearchBar extends Component {
         accessor : 'wellname',
         minWidth: 500
       }]
-      return (<><div className={Style.SearchOption} style={{width : '100px' , align : 'right'}}><button className='btn btn-info' onClick = {this.exportExcel.bind(this)}>Export</button></div><div className={Style.SearchOption}>  <ReactTable columns = {columns} data = {data} showPaginationBottom/> </div></>)
+      return (<><div className={Style.SearchOption} style={{width : '100px' , align : 'right'}}><button style={{backgroundColor:'lightblue'}} onClick = {this.exportExcel.bind(this)}>Export</button></div><div className={Style.SearchOption}>  <ReactTable loadingText={' '} columns = {columns} data = {data} /> </div></>)
     }
  }
   
@@ -237,8 +256,20 @@ class SearchBar extends Component {
 
     if (well.uuid) {
       return showDetails
-        ? <ChosenWell.Details well={Object.assign(well,{"search" : this.state.inputValue})} />
-        : <ChosenWell well={Object.assign(well,{"search" : this.state.inputValue})} />
+        ? <> <ChosenWell.Details well={Object.assign(well,{"search" : this.state.inputValue})} /> 
+            <CustomDialog 
+             open = {this.state.confirmationModal}
+             content = {this.state.confirmationMessage}
+             action = {<button variant="outlined" color='primary' onClick = {this.handleConfirmationOk.bind(this)}> Ok </button>}
+            />	
+        </>
+        :<> <ChosenWell well={Object.assign(well,{"search" : this.state.inputValue})}/> 
+            <CustomDialog 
+             open = {this.state.confirmationModal}
+             content = {this.state.confirmationMessage}
+             action = {<button variant="outlined" color='primary' onClick = {this.handleConfirmationOk.bind(this)}> Ok </button>}
+            />	
+          </>
     } else {
       return <>
         {/*<AsyncSelect className={Style.SearchBar}
@@ -267,6 +298,11 @@ class SearchBar extends Component {
           <br />
           <br />
           {this.showsuggestedwellstable()}
+          <CustomDialog 
+				    open = {this.state.confirmationModal}
+				    content = {this.state.confirmationMessage}
+				    action = {<button variant="outlined" color='primary' onClick = {this.handleConfirmationOk.bind(this)}> Ok </button>}
+				  />	
         {
           error &&
           <ErrorDisplay error={error} />

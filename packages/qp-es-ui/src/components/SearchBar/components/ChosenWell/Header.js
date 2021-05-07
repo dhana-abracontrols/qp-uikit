@@ -21,7 +21,7 @@ const Header = ({ well, clickDetails, showDetails }) => {
       label={primaryHeader.label}
       value={primaryHeaderValue} />
     <Button className={Style.Button} onClick={clickDetails}>
-      {showDetails ? 'Overview' : 'Details'}
+      Export
     </Button>
   </>
 }
@@ -29,7 +29,7 @@ const Header = ({ well, clickDetails, showDetails }) => {
 Header.propTypes = {
   well: PropTypes.object.isRequired,
   clickDetails: PropTypes.func.isRequired,
-  showDetails: PropTypes.bool.isRequired
+  showDetails: PropTypes.bool
 }
 
 export default Header
