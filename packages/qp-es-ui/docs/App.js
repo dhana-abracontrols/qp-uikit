@@ -1,4 +1,4 @@
-/* global API_KEY */
+/* exported global API_KEY */
 
 import React, { Component } from 'react'
 
@@ -17,7 +17,7 @@ class App extends Component {
     // API_KEY=API_KEY. If in production, API_KEY is set to ''
 
     // This allows devs to skip copy pasting a key into the box every reload.
-    this.state = { API_KEY : 'temp'}
+    this.state = { API_KEY: 'temp' }
     this.updateKey = this.updateKey.bind(this)
   }
 

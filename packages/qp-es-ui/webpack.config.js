@@ -68,8 +68,8 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              import: true,
-              
+              import: true
+
             }
           }
         ]

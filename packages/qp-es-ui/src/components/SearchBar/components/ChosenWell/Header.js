@@ -7,10 +7,10 @@ import Button from '../../../Button'
 import Style from './Header.module.css'
 
 const Header = ({ well, clickDetails, showDetails }) => {
-  const { primaryHeader,search } = well
+  const { primaryHeader, search } = well
   const primaryHeaderValue = {
-    value : primaryHeader.value ? primaryHeader.value : null,
-    query : search
+    value: primaryHeader.value ? primaryHeader.value : null,
+    query: search
   }
 
   return <>

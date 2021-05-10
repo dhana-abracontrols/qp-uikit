@@ -15,23 +15,23 @@ import Pillbox from '../PillBox'
 import Style from './index.module.css'
 
 const ChosenWell = ({ well }) => {
-  const { subheader, govId, surfaceLocation, owner,search } = well
+  const { subheader, govId, surfaceLocation, owner, search } = well
 
   const subHeaderValue = {
-    value : subheader.value ? subheader.value : null,
-    query : search
+    value: subheader.value ? subheader.value : null,
+    query: search
   }
   const surfaceLocationValue = {
-    value : surfaceLocation.value ? surfaceLocation.value : null,
-    query : search
+    value: surfaceLocation.value ? surfaceLocation.value : null,
+    query: search
   }
   const govIdValue = {
-    value : govId.value ? govId.value : null,
-    query : search
+    value: govId.value ? govId.value : null,
+    query: search
   }
   const ownerValue = {
-    value : owner.value ? owner.value : null,
-    query : search
+    value: owner.value ? owner.value : null,
+    query: search
   }
 
   return (
