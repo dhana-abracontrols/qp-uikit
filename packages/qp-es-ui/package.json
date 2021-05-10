@@ -73,7 +73,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.5.0",
     "lodash": "^4.17.15",
-    "nps": "^5.9.3",
+    "nps": "^5.10.0",
     "nps-utils": "^1.7.0",
     "postcss": "*",
     "postcss-modules": "*",
