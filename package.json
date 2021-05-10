@@ -1,9 +1,10 @@
 {
   "name": "root",
   "private": true,
-  "version": "3.0.1",
+  "version": "3.0.3",
   "scripts": {
     "ci": "lerna bootstrap --hoist && lerna run verify",
+    "version": "git add -A",
     "postversion": "git push && lerna publish"
   },
   "devDependencies": {
