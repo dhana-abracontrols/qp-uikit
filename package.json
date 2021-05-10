@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "ci": "lerna bootstrap --hoist && lerna run verify",
-    "version": "git add -A",
     "postversion": "git push && lerna publish"
   },
   "devDependencies": {
