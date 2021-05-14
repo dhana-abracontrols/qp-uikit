@@ -28,7 +28,8 @@
   "scripts": {
     "build": "nps build && bundlesize",
     "build-docs": "nps build.docs",
-    "lint": "eslint ./src ./docs",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .js,.jsx .",
     "deploy": "cross-env NODE_ENV=production nps publish",
     "start": "cross-env NODE_ENV=development webpack-dev-server --progress",
     "test": "jest --coverage",

@@ -21,7 +21,7 @@ const globals = {
 }
 // * This function excludes files from being included in the bundle
 const external = id => {
-  return  true
+  return true
 }
 
 const babelOptions = () => ({

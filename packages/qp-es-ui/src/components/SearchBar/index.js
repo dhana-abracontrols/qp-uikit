@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import FetchWithTimeout from '../../util/FetchWithTimeout'
 import dataToExcel from '../../util/exportToExcel'
 // import AsyncSelect from 'react-select/async'
-import { SearchOption, ChosenWell, WellsFound } from './components'
+import { SearchOption, ChosenWell } from './components'
 import ErrorDisplay from '../ErrorDisplay'
 import Modal from '../Dialog/Dialog'
 import Style from './index.module.css'
@@ -35,8 +35,6 @@ const DEFAULT_STATE = {
 function groupBy (list, keyGetter) {
   const map = new Map()
   list.forEach((item) => {
-    const key1 = keyGetter(item)
-
     let key = keyGetter(item)
 
     const collection = map.get(key)
@@ -65,6 +63,7 @@ class SearchBar extends Component {
     this.chosenWellHeader = this.chosenWellHeader.bind(this)
     this.onInputChange = this.onInputChange.bind(this)
     this.handleConfirmationOk = this.handleConfirmationOk.bind(this)
+    this.exportExcel = this.exportExcel.bind(this)
   }
 
   handleConfirmationOk () {
@@ -183,7 +182,7 @@ class SearchBar extends Component {
         accessor: 'wellname',
         minWidth: 500
       }]
-      return (<><div className={Style.SearchOption} style={{ width: '100px', align: 'right' }}><button style={{ backgroundColor: 'lightblue' }} onClick={this.exportExcel.bind(this)}>Export</button></div><div className={Style.SearchOption}>  <ReactTable loadingText={' '} columns={columns} data={data} /> </div></>)
+      return (<><div className={Style.SearchOption} style={{ width: '100px', align: 'right' }}><button style={{ backgroundColor: 'lightblue' }} onClick={this.exportExcel}>Export</button></div><div className={Style.SearchOption}>  <ReactTable loadingText={' '} columns={columns} data={data} /> </div></>)
     }
   }
 
