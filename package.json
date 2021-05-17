@@ -1,9 +1,9 @@
 {
   "name": "root",
   "private": true,
-  "version": "3.0.3",
+  "version": "1.0.0",
   "scripts": {
-    "ci": "lerna bootstrap --hoist && lerna run verify",
+    "ci": "lerna bootstrap && lerna run verify",
     "version": "git add -A",
     "postversion": "git push && lerna publish"
   },
@@ -16,10 +16,9 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
-    "lerna": "^4.0.0"
+    "lerna": "^3.14.1"
   },
   "dependencies": {
-    "jest": "^26.6.3",
-    "nps-utils": "^1.7.0"
+    "react-table": "^7.7.0"
   }
 }
